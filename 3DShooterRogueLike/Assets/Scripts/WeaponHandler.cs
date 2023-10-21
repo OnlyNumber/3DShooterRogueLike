@@ -27,8 +27,6 @@ public class WeaponHandler : MonoBehaviour
 
             Physics.Raycast(aimRay, out RaycastHit hitInfo, 100, _attackLayer);
 
-            Debug.Log(hitInfo.collider.gameObject.name);
-
             if (hitInfo.collider != null && hitInfo.collider.gameObject.CompareTag("Enemy"))
             {
                 hitInfo.collider.GetComponent<HitBox>().TakeDamage(5);
