@@ -7,20 +7,11 @@ using UnityEngine.UI;
 
 public class HealthHandler : MonoBehaviour
 {
-    [SerializeField]
-    Image _healthIndicator;
-
-    [SerializeField]
-    private TMP_Text _helthText;
-
     [field: SerializeField]
     public float MaxHealth { get; private set; }
 
     private float _health;
 
-    [SerializeField]
-    private float _stunAfterThisPercent;
-        
     public Action OnHealthChange;
 
     public Action OnDeath;
