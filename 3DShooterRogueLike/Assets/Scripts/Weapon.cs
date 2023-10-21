@@ -3,28 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     [SerializeField]
-    private StarterAssetsInputs _input;
+    protected LayerMask AttackLayer;
 
     [SerializeField]
-    private LayerMask _attackLayer;
+    protected StarterAssetsInputs Input;
 
-    void Update()
+    [SerializeField]
+    protected int CartrigeAmmo;
+
+    [SerializeField]
+    protected int LastAmmo;
+
+    [SerializeField]
+    protected int CurrentAmmo;
+
+    [SerializeField]
+    protected float CurrentTime;
+
+    [SerializeField]
+    protected float TimeBetweenShoots;
+
+    private void Update()
     {
-        if(_input.attack)
-        {
-            Vector2 centerCamera = new Vector2(Screen.width/2, Screen.height / 2);
-
-            Ray aimRay = Camera.main.ScreenPointToRay(centerCamera);
-
-            Physics.Raycast(aimRay, out RaycastHit hitInfo, 100, _attackLayer);
-
-            if (hitInfo.collider.gameObject.CompareTag("Enemy") )
-            {
-                hitInfo.collider.GetComponent<HitBox>().TakeDamage(5);
-            }
-        }
+        CurrentTime += Time.deltaTime;
     }
+
+    public abstract void Attack();
+
+    public string GetAmmoString()
+    {
+        string str = "qweqwe";
+
+        return str;
+    }
+
 }
