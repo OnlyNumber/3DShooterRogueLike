@@ -5,6 +5,9 @@ using StarterAssets;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [field: SerializeField]
+    public Animator Animator { get; private set; }
+
     [SerializeField]
     protected LayerMask AttackLayer;
 
@@ -35,7 +38,7 @@ public abstract class Weapon : MonoBehaviour
 
     public string GetAmmoString()
     {
-        string str = "qweqwe";
+        string str = CurrentAmmo + " / " + CartrigeAmmo + "  " + LastAmmo;
 
         return str;
     }

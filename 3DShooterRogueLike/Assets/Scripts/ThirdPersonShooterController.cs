@@ -42,7 +42,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     private void Update()
     {
-        _rig.weight = Mathf.Lerp(_rig.weight, _aimWeight, Time.deltaTime * 20f);
+        //_rig.weight = Mathf.Lerp(_rig.weight, _aimWeight, Time.deltaTime * 20f);
 
         Vector2 screenPoint = new Vector2(Screen.width/2, Screen.height/2);
         Ray aimRay = Camera.main.ScreenPointToRay(screenPoint);
@@ -62,6 +62,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             StopAim();
 
         }
+
     }
 
     private void StartAim()
