@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool aim;
 		public bool attack;
+		public bool reload;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -53,10 +54,18 @@ namespace StarterAssets
 
 		public void OnAttack(InputValue value)
 		{
+			Debug.Log("AttackPress");
+
+
 			AttackInput(value.isPressed);
 		}
 
+		public void OnReload(InputValue value)
+		{
 
+			Debug.Log("ReloadPress");
+			ReloadInput(value.isPressed);
+		}
 #endif
 
 
@@ -88,6 +97,11 @@ namespace StarterAssets
 		public void AttackInput(bool newAttackState)
 		{
 			attack = newAttackState;
+		}
+
+		public void ReloadInput(bool newReloadState)
+		{
+			reload = newReloadState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

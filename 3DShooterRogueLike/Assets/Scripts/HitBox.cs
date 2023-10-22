@@ -23,7 +23,7 @@ public class HitBox : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log(damage * _modifier);
+        //Debug.Log(damage * _modifier);
 
         _healthHandler.TakeDamage(damage * _modifier);
 

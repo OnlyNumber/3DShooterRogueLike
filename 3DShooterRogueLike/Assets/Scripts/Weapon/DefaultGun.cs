@@ -19,10 +19,12 @@ public class DefaultGun : Weapon
     [SerializeField, Range(0, 1f)]
     private float _volume;
 
+    [SerializeField]
+    private AudioClip _reloadSound;
 
     public override void Attack()
     {
-        if(CurrentTime < TimeBetweenShoots || CurrentAmmo <= 0 )
+        if (CurrentTime < TimeBetweenShoots || CurrentAmmo <= 0)
         {
             return;
         }
@@ -33,13 +35,14 @@ public class DefaultGun : Weapon
 
         Physics.Raycast(aimRay, out RaycastHit hitInfo, 100, AttackLayer);
 
-        //Debug.Log(hitInfo.collider.gameObject.name);
-
         if (hitInfo.collider != null && hitInfo.collider.gameObject.CompareTag("Enemy"))
         {
-            
-            hitInfo.collider.GetComponent<HitBox>().TakeDamage(5);
 
+            if (hitInfo.collider.TryGetComponent<HitBox>(out HitBox hitBox))
+            {
+                hitBox.TakeDamage(Damage);
+
+            }
         }
 
         if (_isOneTap)
@@ -66,4 +69,29 @@ public class DefaultGun : Weapon
             AudioSource.PlayClipAtPoint(_gunSounds[index], transform.TransformPoint(_firePoint.position), _volume);
         }
     }
+
+    public override void Reload()
+    {
+
+        int needAmmo = CartrigeAmmo - CurrentAmmo;
+
+        if (needAmmo < LastAmmo)
+        {
+            CurrentAmmo = CartrigeAmmo;
+            LastAmmo -= needAmmo;
+        }
+        else
+        {
+            CurrentAmmo += LastAmmo;
+            LastAmmo = 0;
+        }
+
+
+    }
+
+    public override void ReloadSound()
+    {
+        AudioSource.PlayClipAtPoint(_reloadSound, transform.TransformPoint(_firePoint.position), _volume);
+    }
+
 }

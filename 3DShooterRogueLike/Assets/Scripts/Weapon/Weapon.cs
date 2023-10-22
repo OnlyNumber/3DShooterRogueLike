@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using UnityEditor.Animations;
 
 public abstract class Weapon : MonoBehaviour
 {
     [field: SerializeField]
-    public Animator Animator { get; private set; }
+    public AnimatorController Animator { get; private set; }
 
     [SerializeField]
     protected LayerMask AttackLayer;
@@ -29,8 +30,15 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     protected float TimeBetweenShoots;
 
+    [SerializeField]
+    protected float Damage;
+
+
     private void Update()
     {
+
+        
+         
         CurrentTime += Time.deltaTime;
     }
 
@@ -42,5 +50,10 @@ public abstract class Weapon : MonoBehaviour
 
         return str;
     }
+
+    public abstract void Reload();
+
+    public abstract void ReloadSound();
+
 
 }

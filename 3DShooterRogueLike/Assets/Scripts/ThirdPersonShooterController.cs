@@ -7,7 +7,7 @@ using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonShooterController : MonoBehaviour
 {
-    private float _aimWeight;
+    private float _aimWeight = 0;
 
     [SerializeField]
     private CinemachineVirtualCamera _cinemachineVirtualCamera;
@@ -42,7 +42,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     private void Update()
     {
-        //_rig.weight = Mathf.Lerp(_rig.weight, _aimWeight, Time.deltaTime * 20f);
+        _rig.weight = Mathf.Lerp(_rig.weight, _aimWeight, Time.deltaTime * 20f);
 
         Vector2 screenPoint = new Vector2(Screen.width/2, Screen.height/2);
         Ray aimRay = Camera.main.ScreenPointToRay(screenPoint);
@@ -53,19 +53,22 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
 
 
-        if(_starterAssetsInputs.aim)
+        if(_starterAssetsInputs.aim && !_animator.GetCurrentAnimatorStateInfo(2).IsName("Reload"))
         {
             StartAim();
+            _animator.SetLayerWeight(2, Mathf.Lerp(_animator.GetLayerWeight(2), 0, Time.deltaTime * 10f));
+        
         }
         else
         {
             StopAim();
+            _animator.SetLayerWeight(2, Mathf.Lerp(_animator.GetLayerWeight(2), 1, Time.deltaTime * 10f));
 
         }
 
     }
 
-    private void StartAim()
+    public void StartAim()
     {
         _cinemachineVirtualCamera.gameObject.SetActive(true);
         _thirdPersonController.SetSensitivity(_aimSensitivity);
@@ -79,16 +82,18 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1, Time.deltaTime * 10f));
 
+
         _aimWeight = 1;
     }
 
-    private void StopAim()
+    public void StopAim()
     {
         _cinemachineVirtualCamera.gameObject.SetActive(false);
         _thirdPersonController.BackToNormalSensitivity();
         _thirdPersonController.SetRotating(true);
 
         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0, Time.deltaTime * 10f));
+
 
         _aimWeight = 0;
     }
