@@ -29,9 +29,14 @@ public class HealthHandler : MonoBehaviour
         {
             _health = value;
 
+            if(_health > MaxHealth)
+            {
+                _health = MaxHealth;
+            }
+
             OnHealthChange?.Invoke();
 
-            Debug.Log(_health);
+
 
             if(_health <= 0)
             {

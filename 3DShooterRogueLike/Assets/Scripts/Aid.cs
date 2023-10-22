@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Aid : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float _healAmount;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        other.gameObject.GetComponent<HealthHandler>().TakeDamage(-_healAmount);
+
+        Destroy(gameObject);
     }
 }

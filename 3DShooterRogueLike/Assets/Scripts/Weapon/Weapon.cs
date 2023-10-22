@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
 using UnityEditor.Animations;
+using System;
 
 public abstract class Weapon : MonoBehaviour
 {
@@ -22,7 +23,26 @@ public abstract class Weapon : MonoBehaviour
     protected int LastAmmo;
 
     [SerializeField]
-    protected int CurrentAmmo;
+    private int CurrentAmmo;
+
+    public Action OnChangeAmmo;
+
+    protected int AmmoVariable
+    {
+        set
+        {
+            CurrentAmmo = value;
+            
+            OnChangeAmmo?.Invoke();
+        }
+
+        get
+        {
+            return CurrentAmmo;
+        }
+    }
+
+
 
     [SerializeField]
     protected float CurrentTime;
@@ -51,9 +71,43 @@ public abstract class Weapon : MonoBehaviour
         return str;
     }
 
-    public abstract void Reload();
+    public void Reload()
+    {
+
+        int needAmmo = CartrigeAmmo - AmmoVariable;
+
+        if (needAmmo < LastAmmo)
+        {
+            LastAmmo -= needAmmo;
+            AmmoVariable = CartrigeAmmo;
+        }
+        else
+        {
+            LastAmmo = 0;
+            AmmoVariable += LastAmmo;
+        }
+
+
+    }
 
     public abstract void ReloadSound();
+
+    public void GetAmmo(int amountCartriges)
+    {
+        LastAmmo += CartrigeAmmo * amountCartriges;
+    }
+
+    public bool IsCanReload()
+    {
+        if(LastAmmo == 0 || AmmoVariable == CartrigeAmmo)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
 
 }

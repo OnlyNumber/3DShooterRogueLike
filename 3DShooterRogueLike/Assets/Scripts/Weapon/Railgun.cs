@@ -25,7 +25,7 @@ public class Railgun : Weapon
 
     public override void Attack()
     {
-        if (CurrentTime < TimeBetweenShoots || CurrentAmmo <= 0)
+        if (CurrentTime < TimeBetweenShoots || AmmoVariable <= 0)
         {
             return;
         }
@@ -49,7 +49,7 @@ public class Railgun : Weapon
 
         Instantiate(_projectile, _firePoint.position, _firePoint.rotation);
 
-        Input.attack = false;
+        //Input.attack = false;
 
         _particleEffect.Play();
 
@@ -57,7 +57,7 @@ public class Railgun : Weapon
 
         CurrentTime = 0;
 
-        CurrentAmmo--;
+        AmmoVariable--;
 
 
 
@@ -71,24 +71,7 @@ public class Railgun : Weapon
         }
     }
 
-    public override void Reload()
-    {
-
-        int needAmmo = CartrigeAmmo - CurrentAmmo;
-
-        if (needAmmo < LastAmmo)
-        {
-            CurrentAmmo = CartrigeAmmo;
-            LastAmmo -= needAmmo;
-        }
-        else
-        {
-            CurrentAmmo += LastAmmo;
-            LastAmmo = 0;
-        }
-
-
-    }
+    
 
     public override void ReloadSound()
     {

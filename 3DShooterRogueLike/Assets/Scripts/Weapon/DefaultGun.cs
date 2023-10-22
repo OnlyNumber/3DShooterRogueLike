@@ -24,7 +24,7 @@ public class DefaultGun : Weapon
 
     public override void Attack()
     {
-        if (CurrentTime < TimeBetweenShoots || CurrentAmmo <= 0)
+        if (CurrentTime < TimeBetweenShoots || AmmoVariable <= 0)
         {
             return;
         }
@@ -56,7 +56,7 @@ public class DefaultGun : Weapon
 
         CurrentTime = 0;
 
-        CurrentAmmo--;
+        AmmoVariable--;
 
 
 
@@ -70,24 +70,7 @@ public class DefaultGun : Weapon
         }
     }
 
-    public override void Reload()
-    {
-
-        int needAmmo = CartrigeAmmo - CurrentAmmo;
-
-        if (needAmmo < LastAmmo)
-        {
-            CurrentAmmo = CartrigeAmmo;
-            LastAmmo -= needAmmo;
-        }
-        else
-        {
-            CurrentAmmo += LastAmmo;
-            LastAmmo = 0;
-        }
-
-
-    }
+    
 
     public override void ReloadSound()
     {

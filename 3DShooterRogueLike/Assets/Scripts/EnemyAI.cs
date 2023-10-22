@@ -32,8 +32,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float _damage;
 
-    
-
     void Start()
     {
         _navMeshAgent.SetDestination(transform.position);
@@ -43,7 +41,6 @@ public class EnemyAI : MonoBehaviour
     {
         _canvas.transform.LookAt(new Vector3(_player.position.x, _canvas.transform.position.y, _player.position.z));
 
-        //_canvas.transform.Rotate(new Vector3(180,0,0));
         _animator.SetFloat("Speed", _navMeshAgent.speed);
 
         if (Vector3.Distance(transform.position, _player.position) > 1.5f)
@@ -77,6 +74,9 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    public void Death()
+    {
 
+    }
 
 }

@@ -27,26 +27,38 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField]
     private ThirdPersonShooterController _tpscontroller;
 
+    public float abc;
+
     private void Start()
     {
         _weaponAmmo.text = _currentWeapon.GetAmmoString();
+
+        foreach (var weapon in _listWeapons)
+        {
+            weapon.OnChangeAmmo += ChangeAmmoText;
+        }
+
     }
 
     void Update()
     {
         if (_input.attack && !_animator.GetCurrentAnimatorStateInfo(2).IsName("Reload"))
         {
+            if(_animator.GetLayerWeight(1) > 0.9f || _animator.GetLayerWeight(1) > abc && _animator.GetLayerWeight(2) > 0.9f)
             _currentWeapon.Attack();
 
-            _weaponAmmo.text = _currentWeapon.GetAmmoString();
+            //_weaponAmmo.text = _currentWeapon.GetAmmoString();
 
             _tpscontroller.StartAim();
 
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(_input.reload && _currentWeapon.IsCanReload())
         {
             _animator.SetTrigger("Reload");
+
+            _input.reload = false;
+
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -74,19 +86,32 @@ public class WeaponHandler : MonoBehaviour
 
         _currentWeapon.gameObject.SetActive(true);
 
-        _weaponAmmo.text = _currentWeapon.GetAmmoString();
+        ChangeAmmoText();
 
     }
 
     private void Reload()
     {
         _currentWeapon.Reload();
-        _weaponAmmo.text = _currentWeapon.GetAmmoString();
     }
 
     private void ReloadSound()
     {
         _currentWeapon.ReloadSound();
     }
+
+    public void GetAmmo(int cartrigesAmount)
+    {
+        _currentWeapon.GetAmmo(cartrigesAmount);
+        
+        _weaponAmmo.text = _currentWeapon.GetAmmoString();
+    }
+
+    private void ChangeAmmoText()
+    {
+        _weaponAmmo.text = _currentWeapon.GetAmmoString();
+    }
+
+
 
 }
