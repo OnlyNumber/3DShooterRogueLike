@@ -10,4 +10,10 @@ public class PlayerInfoSO : ScriptableObject
 
     public int LoseCount;
 
+    public PlayerInfoSO()
+    {
+        WinCount = 0;
+        LoseCount = 0;
+    }
+
 }

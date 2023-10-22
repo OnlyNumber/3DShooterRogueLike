@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Aid : MonoBehaviour
+public class Aid : Item
 {
     [SerializeField]
     private float _healAmount;

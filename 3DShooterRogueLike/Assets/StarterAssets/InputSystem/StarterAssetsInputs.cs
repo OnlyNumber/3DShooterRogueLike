@@ -54,16 +54,11 @@ namespace StarterAssets
 
 		public void OnAttack(InputValue value)
 		{
-			Debug.Log("AttackPress");
-
-
 			AttackInput(value.isPressed);
 		}
 
 		public void OnReload(InputValue value)
 		{
-
-			Debug.Log("ReloadPress");
 			ReloadInput(value.isPressed);
 		}
 #endif

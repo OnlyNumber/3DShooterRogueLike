@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
-using UnityEditor.Animations;
 using System;
 
 public abstract class Weapon : MonoBehaviour
 {
     [field: SerializeField]
-    public AnimatorController Animator { get; private set; }
+    public RuntimeAnimatorController Animator { get; private set; }
 
     [SerializeField]
     protected LayerMask AttackLayer;

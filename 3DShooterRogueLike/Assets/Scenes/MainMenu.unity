@@ -2343,6 +2343,7 @@ MonoBehaviour:
   _loseTXT: {fileID: 1024325159}
   _gameScene: CombatScene
   _playerInfo: {fileID: 11400000, guid: 5bed485e84fb49a4fb3a9f993d2ace24, type: 2}
+  _saveString: PlayerData
 --- !u!1 &1787693427
 GameObject:
   m_ObjectHideFlags: 0

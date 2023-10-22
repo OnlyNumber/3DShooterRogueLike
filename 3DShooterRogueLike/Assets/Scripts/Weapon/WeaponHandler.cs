@@ -29,8 +29,13 @@ public class WeaponHandler : MonoBehaviour
 
     public float abc;
 
+    [SerializeField]
+    private HealthHandler _healthHandler;
+
     private void Start()
     {
+        _healthHandler.OnDeath += Death;
+
         _weaponAmmo.text = _currentWeapon.GetAmmoString();
 
         foreach (var weapon in _listWeapons)
@@ -112,6 +117,18 @@ public class WeaponHandler : MonoBehaviour
         _weaponAmmo.text = _currentWeapon.GetAmmoString();
     }
 
+    private void Death()
+    {
+        GetComponent<CharacterController>().enabled = false;
+
+        GetComponent<ThirdPersonShooterController>().enabled = false;
+
+        GetComponent<ThirdPersonController>().enabled = false;
+
+        this.enabled = false;
+
+        _animator.SetTrigger("Death");
+    }
 
 
 }

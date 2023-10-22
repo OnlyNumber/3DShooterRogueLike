@@ -268,7 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7a329eeeb4a4b4089ff955f512ef7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Animator>k__BackingField: {fileID: 0}
+  <Animator>k__BackingField: {fileID: 9100000, guid: 22d500c1ffc2d1641a4e853e30b78905,
+    type: 2}
   AttackLayer:
     serializedVersion: 2
     m_Bits: 65

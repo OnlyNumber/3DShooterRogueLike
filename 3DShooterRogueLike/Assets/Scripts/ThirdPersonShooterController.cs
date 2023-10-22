@@ -37,6 +37,10 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Cursor.visible = false;
+
         _starterAssetsInputs = GetComponent<StarterAssetsInputs>();
     }
 

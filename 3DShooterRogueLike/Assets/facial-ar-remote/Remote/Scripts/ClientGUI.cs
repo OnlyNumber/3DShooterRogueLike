@@ -4,7 +4,6 @@ using System.Net.Sockets;
 using System.Threading;
 using TMPro;
 using UnityEngine;
-using UnityEngine.iOS;
 using UnityEngine.UI;
 
 namespace Unity.Labs.FacialRemote
@@ -61,19 +60,12 @@ namespace Unity.Labs.FacialRemote
         void Awake()
         {
             m_Camera = Camera.main;
-            if (Device.generation == DeviceGeneration.iPhoneX)
-            {
-                m_MainGUI.enabled = false;
-                m_FaceLostGUI.enabled = false;
-                m_NotSupprotedGUI.enabled = false;
-            }
-            else
-            {
+            
                 m_MainGUI.enabled = false;
                 m_FaceLostGUI.enabled = false;
                 m_NotSupprotedGUI.enabled = true;
                 enabled = false;
-            }
+            
         }
 
         void Start()
