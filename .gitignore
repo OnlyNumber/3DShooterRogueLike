@@ -2,7 +2,7 @@
 # Unity folders and files
 ###
 [Aa]ssets/AssetStoreTools*
-/[Bb]uild/
+//[Bb]uild/
 [Ll]ibrary/
 [Ll]ocal[Cc]ache/
 [Oo]bj/
@@ -72,3 +72,4 @@ Thumbs.db
 3DShooterRogueLike/Logs/shadercompiler-UnityShaderCompiler.exe-6.log
 3DShooterRogueLike/Logs/shadercompiler-UnityShaderCompiler.exe-7.log
 *.log
+Build/3DShooterRogueLike_Data/sharedassets1.assets.resS
