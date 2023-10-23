@@ -82,8 +82,9 @@ public abstract class Weapon : MonoBehaviour
         }
         else
         {
+            int saveNumber = LastAmmo;
             LastAmmo = 0;
-            AmmoVariable += LastAmmo;
+            AmmoVariable += saveNumber;
         }
 
 

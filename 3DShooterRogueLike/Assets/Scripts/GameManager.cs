@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     private Image _gameOverPanel;
 
     [SerializeField]
+    private Image _escapeMenu;
+
+    [SerializeField]
     private float _timeToShow;
 
     [SerializeField]
@@ -38,6 +41,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _currentCountEnemies = 0;
 
+    private bool _isEscapeShowed;
+
+    private bool _isGameOverPanelShowed = false;
+
     private void Start()
     {
         _player.GetComponent<HealthHandler>().OnDeath += PlayerLose;
@@ -46,6 +53,29 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+    private void Update()
+    {
+
+        if (!_isGameOverPanelShowed)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && !_isEscapeShowed)
+            {
+                Debug.Log("Show");
+
+                ShowGameOverPanel(_escapeMenu);
+                _isEscapeShowed = true;
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && _isEscapeShowed)
+            {
+                
+                ClosePanel(_escapeMenu);
+                _isEscapeShowed = false;
+            }
+        }
+    }
+
 
     private void SpawnWave()
     {
@@ -71,15 +101,36 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void ShowGameOverPanel()
+    public void ShowGameOverPanel(Image showPanel)
     {
+        DOTween.Clear();
+
         DOTween.Sequence()
-                .Append(_gameOverPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, _timeToShow));
+                .Append(showPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -Screen.height / 2), _timeToShow))
+                .AppendInterval(_timeToShow)
+                .AppendCallback(() => PauseTween(0));
 
         Cursor.lockState = CursorLockMode.None;
 
         Cursor.visible = true;
     }
+
+    public void ClosePanel(Image closePanel)
+    {
+        DOTween.Clear();
+
+        PauseTween(1);
+
+        DOTween.Sequence()
+                .Append(closePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, Screen.height), _timeToShow));
+
+        Debug.Log("Close");
+
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Cursor.visible = false;
+    }
+
 
     private void PlayerLose()
     {
@@ -87,7 +138,8 @@ public class GameManager : MonoBehaviour
 
         _playerInfo.LoseCount++;
 
-        ShowGameOverPanel();
+        _isGameOverPanelShowed = true;
+        ShowGameOverPanel(_gameOverPanel);
 
     }
 
@@ -97,7 +149,9 @@ public class GameManager : MonoBehaviour
 
         _playerInfo.WinCount++;
 
-        ShowGameOverPanel();
+
+        _isGameOverPanelShowed = true;
+        ShowGameOverPanel(_gameOverPanel);
     }
 
     public void BackToMainMenu()
@@ -109,6 +163,10 @@ public class GameManager : MonoBehaviour
         playerData.WinCount = _playerInfo.WinCount;
 
         SaveManager.Save(SaveManager.SAVE_DATA, playerData);
+
+        DOTween.Clear();
+
+        Time.timeScale = 1;
 
         SceneManager.LoadScene(_mainMenuScene);
     }
@@ -125,5 +183,21 @@ public class GameManager : MonoBehaviour
     {
         return _player;
     }
+
+    private void PauseTween(float timeScale)
+    {
+        Time.timeScale = timeScale;
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!_gameOverPanel || _escapeMenu)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+
+            Cursor.visible = false;
+        }
+    }
+
 
 }

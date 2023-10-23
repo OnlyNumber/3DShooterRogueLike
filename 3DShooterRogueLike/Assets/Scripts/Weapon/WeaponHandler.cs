@@ -27,7 +27,8 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField]
     private ThirdPersonShooterController _tpscontroller;
 
-    public float abc;
+    [SerializeField]
+    private float _weightAimForShoot;
 
     [SerializeField]
     private HealthHandler _healthHandler;
@@ -49,7 +50,7 @@ public class WeaponHandler : MonoBehaviour
     {
         if (_input.attack && !_animator.GetCurrentAnimatorStateInfo(2).IsName("Reload"))
         {
-            if(_animator.GetLayerWeight(1) > 0.9f || _animator.GetLayerWeight(1) > abc && _animator.GetLayerWeight(2) > 0.9f)
+            if(_animator.GetLayerWeight(1) > 0.9f || _animator.GetLayerWeight(1) > _weightAimForShoot && _animator.GetLayerWeight(2) > 0.9f)
             _currentWeapon.Attack();
 
             //_weaponAmmo.text = _currentWeapon.GetAmmoString();
@@ -98,6 +99,7 @@ public class WeaponHandler : MonoBehaviour
     private void Reload()
     {
         _currentWeapon.Reload();
+        _animator.ResetTrigger("Reload");
     }
 
     private void ReloadSound()

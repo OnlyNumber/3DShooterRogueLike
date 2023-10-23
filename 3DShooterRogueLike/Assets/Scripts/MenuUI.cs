@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class MenuUI : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class MenuUI : MonoBehaviour
     [SerializeField]
     private string _saveString;
 
+    [SerializeField]
+    private RectTransform _insructions;
+
     private PlayerData _playerData = new PlayerData();
 
     private void Start()
@@ -36,8 +40,6 @@ public class MenuUI : MonoBehaviour
 
         _loseTXT.text = "Lose: " + _playerInfo.LoseCount;
 
-        
-
     }
 
     public void StartGame()
@@ -50,6 +52,23 @@ public class MenuUI : MonoBehaviour
         Application.Quit();
     }
 
+    public void ShowInstructions()
+    {
+        _insructions.DOScale(1, 1);
+    }
+
+    public void CloseInstructions()
+    {
+        _insructions.DOScale(0, 1);
+    }
+
+    public void ResetData()
+    {
+        _playerInfo.LoseCount = 0;
+
+        _playerInfo.WinCount = 0;
+    }
+
     private void OnApplicationQuit()
     {
         _playerData.LoseCount = _playerInfo.LoseCount;
@@ -58,5 +77,8 @@ public class MenuUI : MonoBehaviour
 
         SaveManager.Save(SaveManager.SAVE_DATA, _playerData);
     }
+
+    
+
 
 }
