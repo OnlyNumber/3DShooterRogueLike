@@ -16,8 +16,12 @@ public class HitBox : MonoBehaviour
 
     public Action OnHit;
 
+    public BoxCollider BoxCollider;
+
     private void Start()
     {
+        BoxCollider = GetComponent<BoxCollider>();
+
         _hitBoxController = GetComponentInParent<HitBoxController>();
     }
 

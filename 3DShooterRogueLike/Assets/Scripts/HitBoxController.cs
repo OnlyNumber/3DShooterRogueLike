@@ -14,6 +14,8 @@ public class HitBoxController : MonoBehaviour
 
     private void Start()
     {
+        GetComponent<HealthHandler>().OnDeath += TurnOffColliders;
+
         foreach (var item in GetComponentsInChildren<HitBox>())
         {
             _hitBoxes.Add(item);
@@ -38,6 +40,14 @@ public class HitBoxController : MonoBehaviour
         if(modifier > 1)
         {
             OnAttackingWeakSpot?.Invoke();
+        }
+    }
+
+    public void TurnOffColliders()
+    {
+        foreach (var item in _hitBoxes)
+        {
+            item.BoxCollider.enabled = false;
         }
     }
 

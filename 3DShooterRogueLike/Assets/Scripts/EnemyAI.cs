@@ -41,7 +41,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float _searchRadius;
 
-    private GameManager _gameManager;
+    private EnemySpawner _mySpawner;
 
     [SerializeField]
     private List<Item> _item;
@@ -61,9 +61,9 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    public void Initialize(GameManager gameManager)
+    public void Initialize(EnemySpawner gameManager)
     {
-        _gameManager = gameManager;
+        _mySpawner = gameManager;
     }
 
 
@@ -119,7 +119,7 @@ public class EnemyAI : MonoBehaviour
 
             return;
         }
-
+        
 
         _currentState?.Invoke();
     }
@@ -146,9 +146,9 @@ public class EnemyAI : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        _gameManager.Recicle(this);
+        _mySpawner.Recicle(this);
 
-        _gameManager.CheckWinCondition();
+        //_mySpawner.CheckWinCondition();
 
     }
 
@@ -165,7 +165,7 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("GetPlayer");
 
-        _player = _gameManager.GetPlayer().transform;
+        _player = _mySpawner.GetPlayer().transform;
 
         _currentState -= SearchPlayerState;
 

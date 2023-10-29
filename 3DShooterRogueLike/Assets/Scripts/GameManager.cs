@@ -12,28 +12,16 @@ public class GameManager : MonoBehaviour
     private List<EnemyAI> _enemyPrefab;
 
     [SerializeField]
-    private List<Transform> _spawnPositions;
-
-    [SerializeField]
-    private List<EnemyAI> _enemyPool = new List<EnemyAI>();
-
-    [SerializeField]
     private PlayerInfoSO _playerInfo;
 
     [SerializeField]
-    private Image _gameOverPanel;
+    private UIPanel _gameOverPanel;
 
     [SerializeField]
-    private Image _escapeMenu;
-
-    [SerializeField]
-    private float _timeToShow;
+    private UIPanel _escapeMenu;
 
     [SerializeField]
     private TMP_Text _lastText;
-
-    [SerializeField]
-    private string _mainMenuScene;
 
     [SerializeField]
     private GameObject _player;
@@ -45,13 +33,16 @@ public class GameManager : MonoBehaviour
 
     private bool _isGameOverPanelShowed = false;
 
+    [SerializeField]
+    private EnemySpawner _enemySpawner;
+
     private void Start()
     {
         _player.GetComponent<HealthHandler>().OnDeath += PlayerLose;
 
-        SpawnWave();
+        _enemySpawner.Initialize(this);
 
-
+        _enemySpawner.SpawnWave();
     }
 
     private void Update()
@@ -63,72 +54,29 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Show");
 
-                ShowGameOverPanel(_escapeMenu);
+                _escapeMenu.ShowGameOverPanel();
                 _isEscapeShowed = true;
 
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && _isEscapeShowed)
             {
-                
-                ClosePanel(_escapeMenu);
+
+                _escapeMenu.ClosePanel();
                 _isEscapeShowed = false;
             }
         }
     }
 
 
-    private void SpawnWave()
-    {
-        foreach (var position in _spawnPositions)
-        {
-            _enemyPool.Add(Instantiate(_enemyPrefab[Random.Range(0, _enemyPrefab.Count)], position.position, Quaternion.identity));
-
-            _enemyPool[_enemyPool.Count - 1].Initialize(this);
-
-            //_currentCountEnemies++;
-        }
-    }
-
-
     public void CheckWinCondition()
     {
-        Debug.Log(_enemyPool.Count);
+        //Debug.Log(_enemySpawner.GetEnenmyCount());
 
-        if(_enemyPool.Count == 0)
+        if(_enemySpawner.GetEnenmyCount() == 0)
         {
             PlayerWin();
         }
 
-    }
-
-    public void ShowGameOverPanel(Image showPanel)
-    {
-        DOTween.Clear();
-
-        DOTween.Sequence()
-                .Append(showPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, -Screen.height / 2), _timeToShow))
-                .AppendInterval(_timeToShow)
-                .AppendCallback(() => PauseTween(0));
-
-        Cursor.lockState = CursorLockMode.None;
-
-        Cursor.visible = true;
-    }
-
-    public void ClosePanel(Image closePanel)
-    {
-        DOTween.Clear();
-
-        PauseTween(1);
-
-        DOTween.Sequence()
-                .Append(closePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, Screen.height), _timeToShow));
-
-        Debug.Log("Close");
-
-        Cursor.lockState = CursorLockMode.Locked;
-
-        Cursor.visible = false;
     }
 
 
@@ -139,7 +87,7 @@ public class GameManager : MonoBehaviour
         _playerInfo.LoseCount++;
 
         _isGameOverPanelShowed = true;
-        ShowGameOverPanel(_gameOverPanel);
+        _gameOverPanel.ShowGameOverPanel();
 
     }
 
@@ -151,7 +99,7 @@ public class GameManager : MonoBehaviour
 
 
         _isGameOverPanelShowed = true;
-        ShowGameOverPanel(_gameOverPanel);
+        _gameOverPanel.ShowGameOverPanel();
     }
 
     public void BackToMainMenu()
@@ -162,31 +110,18 @@ public class GameManager : MonoBehaviour
 
         playerData.WinCount = _playerInfo.WinCount;
 
-        SaveManager.Save(SaveManager.SAVE_DATA, playerData);
+        SaveManager.Save(StaticFields.SAVE_DATA, playerData);
 
         DOTween.Clear();
 
         Time.timeScale = 1;
 
-        SceneManager.LoadScene(_mainMenuScene);
-    }
-
-    public void Recicle(EnemyAI enemy)
-    {
-        _enemyPool.Remove(enemy);
-
-        Destroy(enemy.gameObject);
-
+        SceneManager.LoadScene(StaticFields.MAIN_MENU_SCENE);
     }
 
     public GameObject GetPlayer()
     {
         return _player;
-    }
-
-    private void PauseTween(float timeScale)
-    {
-        Time.timeScale = timeScale;
     }
 
     private void OnApplicationFocus(bool focus)

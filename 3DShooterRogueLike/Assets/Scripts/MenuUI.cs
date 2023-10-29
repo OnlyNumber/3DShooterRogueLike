@@ -15,13 +15,7 @@ public class MenuUI : MonoBehaviour
     private TMP_Text _loseTXT;
 
     [SerializeField]
-    private string _gameScene;
-
-    [SerializeField]
     private PlayerInfoSO _playerInfo;
-
-    [SerializeField]
-    private string _saveString;
 
     [SerializeField]
     private RectTransform _insructions;
@@ -30,7 +24,7 @@ public class MenuUI : MonoBehaviour
 
     private void Start()
     {
-        _playerData = SaveManager.Load<PlayerData>(SaveManager.SAVE_DATA);
+        _playerData = SaveManager.Load<PlayerData>(StaticFields.SAVE_DATA);
 
         _playerInfo.LoseCount = _playerData.LoseCount;
 
@@ -44,7 +38,7 @@ public class MenuUI : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(_gameScene);
+        SceneManager.LoadScene(StaticFields.COMBAT_SCENE);
     }
 
     public void ExitGame()
@@ -75,7 +69,7 @@ public class MenuUI : MonoBehaviour
 
         _playerData.WinCount = _playerInfo.WinCount;
 
-        SaveManager.Save(SaveManager.SAVE_DATA, _playerData);
+        SaveManager.Save(StaticFields.SAVE_DATA, _playerData);
     }
 
     

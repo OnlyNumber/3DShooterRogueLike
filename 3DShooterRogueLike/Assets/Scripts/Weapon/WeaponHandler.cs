@@ -121,12 +121,6 @@ public class WeaponHandler : MonoBehaviour
 
     private void Death()
     {
-        GetComponent<CharacterController>().enabled = false;
-
-        GetComponent<ThirdPersonShooterController>().enabled = false;
-
-        GetComponent<ThirdPersonController>().enabled = false;
-
         this.enabled = false;
 
         _animator.SetTrigger("Death");

@@ -70,7 +70,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &384208977446465861
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +274,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &658491339312232279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1114,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &4581040670371029597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1217,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &4950208919457030861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1410,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &5035287298150754344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,8 +1451,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3390546473874470895}
+  - component: {fileID: 6382565222740186793}
   - component: {fileID: 4314211283783770645}
-  - component: {fileID: 4067602758204181920}
   m_Layer: 6
   m_Name: Head
   m_TagString: Enemy
@@ -1485,24 +1480,8 @@ Transform:
   - {fileID: 6044122522478807714}
   m_Father: {fileID: 945912672753342659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4314211283783770645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5141104123437972041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f319707921b3f4280a6bfe65592716, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthHandler: {fileID: 7927795016893691929}
-  _modifier: 2
-  _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
---- !u!65 &4067602758204181920
-BoxCollider:
+--- !u!135 &6382565222740186793
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1520,8 +1499,23 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5518628, y: 0.46221834, z: 0.4703081}
-  m_Center: {x: 0.0110082235, y: 0.10110918, z: 0.034400944}
+  m_Radius: 0.25957268
+  m_Center: {x: 0, y: 0.13, z: 0}
+--- !u!114 &4314211283783770645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141104123437972041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f319707921b3f4280a6bfe65592716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthHandler: {fileID: 7927795016893691929}
+  _modifier: 2
+  _hitBoxController: {fileID: 5346647247728808180}
 --- !u!1 &5415757957839006861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,7 +2149,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &7609728937301157084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2219,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &7646739649467557564
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,7 +2560,7 @@ GameObject:
   - component: {fileID: 7927795016893691929}
   - component: {fileID: 6355805973973915033}
   m_Layer: 7
-  m_Name: ZombieEnemyNavMeshsSwordsman
+  m_Name: ZombieEnemyNavMeshsArcher
   m_TagString: Enemy
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2686,7 +2678,7 @@ MonoBehaviour:
   _attackLayer:
     serializedVersion: 2
     m_Bits: 256
-  _damage: 10
+  _damage: 5
   <HealthHandler>k__BackingField: {fileID: 7927795016893691929}
   _searchRadius: 6
   _item:
@@ -2826,7 +2818,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &8640192971236168458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,7 +2888,6 @@ MonoBehaviour:
   _healthHandler: {fileID: 7927795016893691929}
   _modifier: 1
   _hitBoxController: {fileID: 5346647247728808180}
-  BoxCollider: {fileID: 0}
 --- !u!1 &8788248867633624580
 GameObject:
   m_ObjectHideFlags: 0

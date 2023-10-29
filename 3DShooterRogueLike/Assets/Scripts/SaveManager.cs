@@ -4,8 +4,6 @@ using UnityEngine;
 
 public static class SaveManager
 {
-    public static string SAVE_DATA = "PlayerData";
-
     public static void Save<T>(string key, T saveData)
     {
         string jsonDataString = JsonUtility.ToJson(saveData, true);
