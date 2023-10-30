@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6704924563299246808}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,9 @@ GameObject:
   - component: {fileID: 1767839941258845917}
   - component: {fileID: 7646335008117699152}
   - component: {fileID: 6134037425251617542}
-  m_Layer: 0
+  - component: {fileID: 7938957088977985305}
+  - component: {fileID: 2846473460694927145}
+  m_Layer: 9
   m_Name: SM_Wep_Revolver_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,6 +157,41 @@ MonoBehaviour:
   _firePoint: {fileID: 6704924563299246808}
   _volume: 1
   _reloadSound: {fileID: 0}
+--- !u!114 &7938957088977985305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094046995462664546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff13ddaaf9ddbc546a58ffa394b4ece8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapon: {fileID: 6134037425251617542}
+  _collider: {fileID: 2846473460694927145}
+--- !u!65 &2846473460694927145
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094046995462664546}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.07562908, y: 0.27122512, z: 0.6269114}
+  m_Center: {x: 0, y: 0.047441173, z: 0.2318871}
 --- !u!1 &4874921257521050431
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +203,7 @@ GameObject:
   - component: {fileID: 6645331039540832647}
   - component: {fileID: 4643231680013931174}
   - component: {fileID: 3070218915414222419}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Revolver_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +286,7 @@ GameObject:
   - component: {fileID: 5808763844463811831}
   - component: {fileID: 3957567235254040661}
   - component: {fileID: 495276093281825971}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Revolver_Hammer_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +369,7 @@ GameObject:
   - component: {fileID: 6901802114435009456}
   - component: {fileID: 7016983589911423820}
   - component: {fileID: 2395694365260141833}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Revolver_Cylinder_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,6 +452,18 @@ PrefabInstance:
     - target: {fileID: 1320275964731592, guid: 0624c6f5a57851d48ba74b4f86ec13d7, type: 3}
       propertyPath: m_Name
       value: FX_Gunshot_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320275964731592, guid: 0624c6f5a57851d48ba74b4f86ec13d7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706791323426068, guid: 0624c6f5a57851d48ba74b4f86ec13d7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753057219379398, guid: 0624c6f5a57851d48ba74b4f86ec13d7, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4056852919073388, guid: 0624c6f5a57851d48ba74b4f86ec13d7, type: 3}
       propertyPath: m_LocalPosition.x

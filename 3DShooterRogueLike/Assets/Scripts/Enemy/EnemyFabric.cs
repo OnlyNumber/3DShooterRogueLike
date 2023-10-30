@@ -11,24 +11,24 @@ public class EnemyFabric : ScriptableObject
     [SerializeField]
     private EnemyAI _enemyRange;
 
-    private EnemyAI Get(EnemyAI enemy)
+    private EnemyAI Get(EnemyAI enemy, Vector3 pos )
     {
         Debug.Log("GetEnemy");
 
-        return Instantiate(enemy);
+        return Instantiate(enemy, pos, Quaternion.identity);
     }
 
-    public EnemyAI Get(DefaultEnemyTypes enemyType)
+    public EnemyAI Get(DefaultEnemyTypes enemyType, Vector3 pos)
     {
         switch (enemyType)
         {
             case DefaultEnemyTypes.melee:
                 {
-                    return Get(_eneemyMelee);
+                    return Get(_eneemyMelee, pos);
                 }
             case DefaultEnemyTypes.range:
                 {
-                    return Get(_enemyRange);
+                    return Get(_enemyRange, pos);
                 }
         }
 

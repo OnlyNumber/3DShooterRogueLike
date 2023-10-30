@@ -36,20 +36,23 @@ public class Railgun : Weapon
 
         RaycastHit[] hitInfoList = Physics.RaycastAll(aimRay, 100, AttackLayer);
 
+        List<GameObject> hitedObjects = new List<GameObject>();
+
         foreach (var hitInfo in hitInfoList)
         {
             if (hitInfo.collider != null && hitInfo.collider.gameObject.CompareTag("Enemy"))
             {
-                if (hitInfo.collider.TryGetComponent<HitBox>(out HitBox hitBox))
+                if (hitInfo.collider.TryGetComponent<HitBox>(out HitBox hitBox) && !hitedObjects.Contains(hitInfo.collider.transform.root.gameObject))
                 {
+                    hitedObjects.Add(hitInfo.collider.transform.root.gameObject);
+
                     hitBox.TakeDamage(Damage);
                 }
             }
         }
+        hitedObjects.Clear();
 
         Instantiate(_projectile, _firePoint.position, _firePoint.rotation);
-
-        //Input.attack = false;
 
         _particleEffect.Play();
 
@@ -58,10 +61,8 @@ public class Railgun : Weapon
         CurrentTime = 0;
 
         AmmoVariable--;
-
-
-
     }
+
     private void GetRandomSound()
     {
         if (_gunSounds.Count > 0)

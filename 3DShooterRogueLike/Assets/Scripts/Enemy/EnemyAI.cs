@@ -7,7 +7,7 @@ using System;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField]
-    private NavMeshAgent _navMeshAgent;
+    public NavMeshAgent _navMeshAgent;
 
     [SerializeField]
     private Transform _player;
@@ -48,6 +48,8 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        
+
         _navMeshAgent.SetDestination(transform.position);
 
         HealthHandler.OnDeath += Death;

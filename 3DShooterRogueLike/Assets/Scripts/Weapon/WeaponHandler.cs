@@ -13,7 +13,7 @@ public class WeaponHandler : MonoBehaviour
     private LayerMask _attackLayer;
 
     [SerializeField]
-    private List<Weapon> _listWeapons;
+    private Weapon[] _listWeapons;
 
     [SerializeField]
     private Weapon _currentWeapon;
@@ -35,14 +35,18 @@ public class WeaponHandler : MonoBehaviour
 
     private void Start()
     {
+
         _healthHandler.OnDeath += Death;
 
         _weaponAmmo.text = _currentWeapon.GetAmmoString();
 
         foreach (var weapon in _listWeapons)
         {
+            if(weapon != null)
             weapon.OnChangeAmmo += ChangeAmmoText;
         }
+
+        //Debug.Log(FindWeaponIndex(null));
 
     }
 
@@ -52,8 +56,6 @@ public class WeaponHandler : MonoBehaviour
         {
             if(_animator.GetLayerWeight(1) > 0.9f || _animator.GetLayerWeight(1) > _weightAimForShoot && _animator.GetLayerWeight(2) > 0.9f)
             _currentWeapon.Attack();
-
-            //_weaponAmmo.text = _currentWeapon.GetAmmoString();
 
             _tpscontroller.StartAim();
 
@@ -79,7 +81,6 @@ public class WeaponHandler : MonoBehaviour
         {
             EquipWeapon(2);
         }
-
     }
 
     public void EquipWeapon(int weaponNumber)
@@ -126,5 +127,46 @@ public class WeaponHandler : MonoBehaviour
         _animator.SetTrigger("Death");
     }
 
+    public void TakeNewWeapon(Weapon newWeapon)
+    {
+        int currentWeaponIndex = FindWeaponIndex(_currentWeapon);
 
+        newWeapon.transform.SetParent(_currentWeapon.transform.parent);
+
+        newWeapon.Initialize(_input);
+
+        newWeapon.transform.localPosition = Vector3.zero;
+
+        newWeapon.transform.localRotation = Quaternion.identity;
+
+        _listWeapons[currentWeaponIndex] = newWeapon;
+
+        newWeapon.OnChangeAmmo += ChangeAmmoText;
+
+        _currentWeapon.OnChangeAmmo -= ChangeAmmoText;
+
+        _currentWeapon.GetComponent<WeaponItem>().DropWeapon(transform.position);
+
+        _currentWeapon = newWeapon;
+
+
+    }
+
+    public int FindWeaponIndex(Weapon searchingWeapon)
+    {
+        int index = 0;
+
+        foreach (var weapon in _listWeapons)
+        {
+            if(searchingWeapon == weapon)
+            {
+                return index;
+            }
+
+            index++;
+        }
+        index = -1;
+
+        return index;
+    }
 }

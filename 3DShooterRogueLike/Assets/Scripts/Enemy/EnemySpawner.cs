@@ -29,11 +29,9 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.Log("Position");
 
-            spawnedEnemy = _enemyFabric.Get(DefaultEnemyTypes.melee);
+            spawnedEnemy = _enemyFabric.Get(DefaultEnemyTypes.melee, point.position);
 
             _enemyPool.Add(spawnedEnemy);
-
-            spawnedEnemy.transform.position = point.position;
 
             spawnedEnemy.HealthHandler.OnDeath += _gameManager.CheckWinCondition;
 
